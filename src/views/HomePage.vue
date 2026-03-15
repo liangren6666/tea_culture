@@ -139,43 +139,44 @@
 import { nextTick, onBeforeUnmount, onMounted, reactive } from "vue";
 
 /* ====== CAROUSEL DATA ====== */
+const base = import.meta.env.BASE_URL;
 const carouselSlides = [
-  { img: "/images/carousel1.jpg", title: "雾锁茶山", desc: "层峦叠嶂的茶园梯田，在晨雾中若隐若现" },
-  { img: "/images/carousel2.jpg", title: "日出茶乡", desc: "阳光洒满万亩茶园，蜿蜒山路串联起千年茶韵" },
-  { img: "/images/carousel3.jpg", title: "心形茶田", desc: "大自然的浪漫馈赠——俯瞰林间心形茶园" },
-  { img: "/images/carousel4.jpg", title: "抹茶采摘", desc: "贵州铜仁的抹茶茶园，机械化采摘正当时" },
-  { img: "/images/carousel5.jpg", title: "茶山人家", desc: "茶园环绕的山间村落，人与茶和谐共生" },
+  { img: `${base}images/carousel1.jpg`, title: "雾锁茶山", desc: "层峦叠嶂的茶园梯田，在晨雾中若隐若现" },
+  { img: `${base}images/carousel2.jpg`, title: "日出茶乡", desc: "阳光洒满万亩茶园，蜿蜒山路串联起千年茶韵" },
+  { img: `${base}images/carousel3.jpg`, title: "心形茶田", desc: "大自然的浪漫馈赠——俯瞰林间心形茶园" },
+  { img: `${base}images/carousel4.jpg`, title: "抹茶采摘", desc: "贵州铜仁的抹茶茶园，机械化采摘正当时" },
+  { img: `${base}images/carousel5.jpg`, title: "茶山人家", desc: "茶园环绕的山间村落，人与茶和谐共生" },
 ];
 
 /* ====== TEA INTRO DATA ====== */
 const teaIntros = [
   {
     name: "绿茶", en: "Green Tea", badge: "不发酵",
-    img: "/images/tea_green.jpg",
+    img: `${base}images/tea_green.jpg`,
     desc: "绿茶是中国产量最大的茶类，以杀青工艺锁住鲜叶的翠绿与清香。茶多酚含量丰富，口感鲜爽回甘，素有「国饮」之称。",
     tags: ["龙井", "碧螺春", "毛峰", "清热解毒"],
   },
   {
     name: "红茶", en: "Black Tea", badge: "全发酵",
-    img: "/images/tea_black.jpg",
+    img: `${base}images/tea_black.jpg`,
     desc: "红茶经过完全发酵，茶汤红亮、滋味醇厚甘甜。既适合清饮，也是奶茶的经典基底，是世界上消费量最大的茶类。",
     tags: ["正山小种", "祁红", "滇红", "暖胃养生"],
   },
   {
     name: "白茶", en: "White Tea", badge: "微发酵",
-    img: "/images/tea_white.jpg",
+    img: `${base}images/tea_white.jpg`,
     desc: "白茶以最简约的工艺著称——不炒不揉，日晒萎凋。银针白毫满披，汤色浅淡，滋味清雅甘甜，「越陈越香」是其独特魅力。",
     tags: ["白毫银针", "白牡丹", "寿眉", "美容养颜"],
   },
   {
     name: "乌龙茶", en: "Oolong Tea", badge: "半发酵",
-    img: "/images/tea_oolong.png",
+    img: `${base}images/tea_oolong.png`,
     desc: "乌龙茶兼具绿茶的清香与红茶的醇厚，以精湛的「做青」工艺闻名。铁观音的兰花香、大红袍的岩骨花香，变幻无穷。",
     tags: ["铁观音", "大红袍", "凤凰单丛", "降脂减肥"],
   },
   {
     name: "黑茶", en: "Dark Tea", badge: "后发酵",
-    img: "/images/tea_jasmine.jpg",
+    img: `${base}images/tea_jasmine.jpg`,
     desc: "黑茶经过独特的渥堆后发酵工艺制成，茶汤红浓明亮，陈香浓郁醇厚。普洱、安化黑茶「越陈越香」，是茶中的「可以喝的古董」。",
     tags: ["普洱茶", "安化黑茶", "六堡茶", "助消化"],
   },
