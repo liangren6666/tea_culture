@@ -3,8 +3,8 @@ import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
   plugins: [vue()],
-  // 为了让打包后的 index.html 直接双击可用，使用相对资源路径
-  base: '/tea_culture/',
+  // 本地开发用 '/'，GitHub Actions 自动打包时用 '/tea_culture/'
+  base: process.env.GITHUB_ACTIONS ? '/tea_culture/' : '/',
   server: {
     host: "0.0.0.0",
     port: 5173,

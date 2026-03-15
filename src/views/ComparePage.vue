@@ -131,7 +131,7 @@ const processData = [
   { name: "红茶", color: "#6c4f3d", steps: ["鲜叶采摘", "萎凋", "揉捻", "发酵", "干燥", "成品"] },
   { name: "白茶", color: "#88a67e", steps: ["鲜叶采摘", "日光萎凋", "低温烘干", "拣剔分级", "成品"] },
   { name: "乌龙茶", color: "#c4a265", steps: ["鲜叶采摘", "晒青萎凋", "做青摇青", "杀青炒青", "揉捻包揉", "烘焙", "成品"] },
-  { name: "茉莉花茶", color: "#5a7d5b", steps: ["茶坯制备", "茉莉鲜花", "窨制", "烘干提花", "拣剔", "成品"] },
+  { name: "黑茶", color: "#5a7d5b", steps: ["鲜叶采摘", "杀青", "揉捻", "渥堆发酵", "干燥压制", "成品"] },
 ];
 
 const radarRef = ref(null);
@@ -150,7 +150,7 @@ function darkTooltip() { return { backgroundColor: "rgba(26,23,20,0.92)", border
 function renderRadar() {
   const chart = initChart("radar", radarRef);
   if (!chart || !teaRows.value.length) return;
-  const flavorScore = (n) => ({ "绿茶": 6, "红茶": 8, "白茶": 7, "乌龙茶": 9, "茉莉花茶": 7 }[n] || 7);
+  const flavorScore = (n) => ({ "绿茶": 6, "红茶": 8, "白茶": 7, "乌龙茶": 9, "黑茶": 8 }[n] || 7);
   const makeData = (name) => {
     const r = teaRows.value.find((t) => t.茶类 === name);
     if (!r) return null;
