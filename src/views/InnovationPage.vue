@@ -91,7 +91,11 @@ function renderDrinkPie() {
   const typeCount = {};
   drinkRows.value.forEach((r) => { if (r.类型) typeCount[r.类型] = (typeCount[r.类型] || 0) + 1; });
   chart.setOption({
-    tooltip: { ...darkTooltip(), trigger: "item" },
+    tooltip: {
+      ...darkTooltip(),
+      trigger: "item",
+      formatter: (p) => `${p.marker}<strong>${p.name}</strong><br/>${p.value} 款（${p.percent}%）`,
+    },
     legend: { bottom: 8, textStyle: { color: "rgba(200,190,175,0.7)", fontSize: 12 } },
     series: [{
       type: "pie", radius: ["35%", "60%"], center: ["50%", "44%"],
@@ -109,11 +113,22 @@ function renderMacro() {
   if (!chart || !macroRows.value.length) return;
   const x = macroRows.value.map((r) => r.年份);
   chart.setOption({
-    tooltip: { ...darkTooltip(), trigger: "axis" },
+    tooltip: {
+      ...darkTooltip(),
+      trigger: "axis",
+      formatter: (params) => {
+        if (!params?.length) return "";
+        let html = `${params[0].axisValueLabel}年<br/>`;
+        params.forEach((p) => {
+          html += `${p.marker}${p.seriesName}: ${p.value} 亿元<br/>`;
+        });
+        return html;
+      },
+    },
     legend: { top: 4, textStyle: { color: "rgba(200,190,175,0.7)", fontSize: 12 } },
-    grid: { left: 55, right: 30, top: 48, bottom: 36 },
+    grid: { left: 58, right: 30, top: 52, bottom: 36 },
     xAxis: { type: "category", data: x, ...darkAxis() },
-    yAxis: { type: "value", name: "亿元", ...darkAxis() },
+    yAxis: { type: "value", name: "金额(亿元)", nameLocation: "middle", nameGap: 42, ...darkAxis() },
     series: [
       {
         name: "现制茶饮规模", type: "line", smooth: true,

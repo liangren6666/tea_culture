@@ -108,14 +108,35 @@ function renderGlobal() {
   const chart = initChart("global", globalRef);
   if (!chart || !globalRows.value.length) return;
   chart.setOption({
-    tooltip: { ...lightTooltip(), trigger: "item" },
+    tooltip: { show: false },
     legend: { bottom: 8, textStyle: { color: "#7a6e62", fontSize: 12 }, itemGap: 12 },
     series: [{
-      type: "pie", roseType: "radius", radius: ["22%", "65%"], center: ["50%", "46%"],
+      type: "pie",
+      roseType: "radius",
+      radius: ["18%", "54%"],
+      center: ["50%", "44%"],
+      avoidLabelOverlap: false,
       data: globalRows.value.map((r) => ({ name: r.国家, value: Number(r.茶叶产量_万吨) })),
-      label: { color: "#3d352d", fontSize: 12 },
+      label: {
+        show: true,
+        position: "outside",
+        formatter: "{b}",
+        color: "#3d352d",
+        fontSize: 12,
+      },
+      labelLine: {
+        show: true,
+        length: 12,
+        length2: 8,
+        lineStyle: { color: "#b5a896", width: 1 },
+      },
       itemStyle: { borderColor: "#fff", borderWidth: 2, borderRadius: 4 },
-      emphasis: { itemStyle: { shadowBlur: 12, shadowColor: "rgba(0,0,0,0.12)" } },
+      emphasis: {
+        scale: true,
+        scaleSize: 6,
+        label: { show: true, formatter: "{b}" },
+        itemStyle: { shadowBlur: 12, shadowColor: "rgba(0,0,0,0.12)" },
+      },
     }],
     color: PALETTE,
   });
@@ -126,9 +147,17 @@ function renderProvinceBar() {
   if (!chart || !provinceRows.value.length) return;
   const sorted = [...provinceRows.value].sort((a, b) => Number(b.茶叶产量_万吨) - Number(a.茶叶产量_万吨));
   chart.setOption({
-    tooltip: { ...darkTooltip(), trigger: "axis" },
-    grid: { left: 80, right: 30, top: 20, bottom: 30 },
-    xAxis: { type: "value", ...darkAxis() },
+    tooltip: {
+      ...darkTooltip(),
+      trigger: "axis",
+      axisPointer: { type: "shadow" },
+      formatter: (params) => {
+        const p = params[0];
+        return `${p.name}<br/>产量: ${p.value} 万吨`;
+      },
+    },
+    grid: { left: 80, right: 30, top: 36, bottom: 36 },
+    xAxis: { type: "value", name: "产量(万吨)", nameLocation: "middle", nameGap: 28, ...darkAxis() },
     yAxis: { type: "category", data: sorted.map((r) => r.省份), inverse: true, ...darkAxis() },
     series: [{
       type: "bar", data: sorted.map((r) => Number(r.茶叶产量_万吨)),

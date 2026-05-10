@@ -161,7 +161,7 @@ function renderRadar() {
     tooltip: { ...lightTooltip(), trigger: "item" },
     legend: { bottom: 8, textStyle: { color: "#7a6e62", fontSize: 12 } },
     radar: {
-      indicator: [{ name: "水温", max: 100 }, { name: "产地广度", max: 4 }, { name: "采摘跨度", max: 8 }, { name: "风味浓度", max: 10 }],
+      indicator: [{ name: "水温(℃)", max: 100 }, { name: "产地广度(个数)", max: 4 }, { name: "采摘跨度(示意)", max: 8 }, { name: "风味浓度(示意)", max: 10 }],
       shape: "circle",
       axisName: { color: "#7a6e62", fontSize: 12 },
       splitArea: { areaStyle: { color: ["rgba(61,90,62,0.02)", "rgba(61,90,62,0.04)"] } },
@@ -184,10 +184,17 @@ function renderEfficacy() {
   };
   const data = [makeData(teaA.value), makeData(teaB.value)].filter(Boolean);
   chart.setOption({
-    tooltip: { ...darkTooltip(), trigger: "item" },
+    tooltip: {
+      ...darkTooltip(),
+      trigger: "item",
+      formatter: (p) => {
+        const rows = (p.value || []).map((v, i) => `${dims[i]}: ${v} 分`);
+        return `<strong>${p.name}</strong><br/>${rows.join("<br/>")}`;
+      },
+    },
     legend: { bottom: 8, textStyle: { color: "rgba(200,190,175,0.7)", fontSize: 12 } },
     radar: {
-      indicator: dims.map((d) => ({ name: d, max: 100 })),
+      indicator: dims.map((d) => ({ name: `${d}(分)`, max: 100 })),
       shape: "circle",
       axisName: { color: "rgba(200,190,175,0.6)", fontSize: 11 },
       splitArea: { areaStyle: { color: ["rgba(196,162,101,0.02)", "rgba(196,162,101,0.04)"] } },
